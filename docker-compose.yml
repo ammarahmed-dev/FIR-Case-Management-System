@@ -1,0 +1,24 @@
+# Starts MySQL 8.0 and loads the whole FIR-CMS database on the first start.
+#   docker compose up -d
+#   docker compose exec db mysql -uroot -pfirccms fir_ccms
+# To reset everything: docker compose down -v
+services:
+  db:
+    image: mysql:8.0
+    container_name: fir-ccms-db
+    environment:
+      MYSQL_ROOT_PASSWORD: firccms
+    ports:
+      - "3306:3306"
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_0900_ai_ci
+    volumes:
+      - ./database/fir_ccms.sql:/docker-entrypoint-initdb.d/01-fir_ccms.sql:ro
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-pfirccms"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  db_data:

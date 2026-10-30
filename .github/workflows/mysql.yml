@@ -1,0 +1,50 @@
+name: Build and test the database
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  mysql:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: firccms
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -pfirccms"
+          --health-interval=5s --health-timeout=5s --health-retries=30
+    env:
+      MYSQL_CMD: mysql -h127.0.0.1 -uroot -pfirccms
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: The committed sample data is up to date
+        run: |
+          python3 tools/generate_sample_data.py > /tmp/data.sql
+          diff -q /tmp/data.sql database/data.sql
+
+      - name: The one-file build matches the three source files
+        run: |
+          python3 - <<'PY'
+          import re
+          one = open("database/fir_ccms.sql", encoding="utf-8").read()
+          for name in ("schema.sql", "logic.sql", "data.sql"):
+              part = open("database/" + name, encoding="utf-8").read().rstrip()
+              assert part in one, name + " is not inside fir_ccms.sql; run tools/build_docs.py"
+          PY
+
+      - name: Build the database (schema, logic, data)
+        run: $MYSQL_CMD < database/fir_ccms.sql
+
+      - name: Run the 27 report queries (none may fail)
+        run: $MYSQL_CMD fir_ccms < database/queries.sql > /dev/null
+
+      - name: Run the 45 integrity tests
+        run: python3 tools/run_integrity_tests.py
+
+      - name: Load the optional roles script
+        run: $MYSQL_CMD < database/roles_and_privileges.sql
