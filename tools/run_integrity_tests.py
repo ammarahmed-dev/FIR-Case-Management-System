@@ -59,6 +59,7 @@ def parse(path):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--markdown", help="also write the results to this markdown file")
+    ap.add_argument("--json", help="also write the results to this JSON file")
     args = ap.parse_args()
 
     tests = parse(os.path.join(ROOT, "database", "integrity_tests.sql"))
@@ -79,6 +80,11 @@ def main():
     print(f"\n{len(tests) - failed}/{len(tests)} rejected as expected; "
           f"database unchanged: {'yes' if unchanged else 'NO'}")
 
+    if args.json:
+        import json
+        with open(os.path.join(ROOT, args.json), "w", encoding="utf-8") as fh:
+            json.dump([{"id": t["id"], "rule": t["rule"], "expect": t["expect"], "sql": t["sql"],
+                        "rejected": ok, "message": message} for t, ok, message in results], fh, indent=1)
     if args.markdown:
         lines = ["# Integrity test results", "",
                  f"{len(tests) - failed} of {len(tests)} attempts to break a rule were rejected by the database, "

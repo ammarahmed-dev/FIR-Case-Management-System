@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FIR Case Management System</title>
+<meta name="description" content="Front end for the FIR and Criminal Case Management System database (MySQL 8.0): FIR register, case files, evidence chain of custody, courts, and the SQL behind every screen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="shell">
+  <aside class="side" id="side">
+    <a class="brand" href="#/">
+      <span class="brand-mark" aria-hidden="true">FIR</span>
+      <span class="brand-text"><b>Case Management</b><small>MySQL 8.0 database</small></span>
+    </a>
+    <nav id="nav" aria-label="Main">
+      <a href="#/" data-route="home">Overview</a>
+      <a href="#/firs" data-route="firs">FIR register</a>
+      <a href="#/people" data-route="people">People</a>
+      <a href="#/evidence" data-route="evidence">Evidence</a>
+      <a href="#/courts" data-route="courts">Courts</a>
+      <a href="#/stations" data-route="stations">Stations and officers</a>
+      <a href="#/queries" data-route="queries">Query explorer</a>
+      <a href="#/rules" data-route="rules">Rules and tests</a>
+      <a href="#/about" data-route="about">About</a>
+    </nav>
+  </aside>
+  <div class="main-col">
+    <div class="banner" id="banner" role="note"></div>
+    <main id="main" tabindex="-1"><p class="loading">Loading the case database...</p></main>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
