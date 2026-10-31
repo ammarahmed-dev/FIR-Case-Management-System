@@ -9,12 +9,15 @@
 
 The system keeps one connected record of a criminal case from the first report at a police station to the court's verdict. Every FIR, person, officer, exhibit, arrest, bail application, hearing and verdict is stored once and linked through keys. The database itself rejects impossible data: a case cannot reach court before it is investigated, an accused person cannot also be the complainant, digital evidence cannot be stored without its hash, and an exhibit cannot change hands without a log entry.
 
+**Live demo:** https://fir-case-management.vercel.app (read-only web front end: FIR register, full case files, evidence chain of custody, courts, the 27 queries and the 45 rule tests)
+
 > Course project in Database Management Systems, applied to Criminology and Criminal Justice. All people, FIRs and events in the sample data are **fictional**. The legal sections are reference data for illustration; check them against the current statutes before any real use.
 
 ---
 
 ## Contents
 
+- [Live demo](#live-demo)
 - [Project information](#project-information)
 - [Problem statement](#problem-statement)
 - [What the system covers](#what-the-system-covers)
@@ -29,6 +32,12 @@ The system keeps one connected record of a criminal case from the first report a
 - [Repository structure](#repository-structure)
 - [Course topics covered](#course-topics-covered)
 - [Limits and future work](#limits-and-future-work)
+
+---
+
+## Live demo
+
+**https://fir-case-management.vercel.app** is a read-only front end for the database. It is plain HTML, CSS and JavaScript in [`web/`](web/) and shows a snapshot of the sample data exported from MySQL by `tools/export_web_data.py`: an overview dashboard, the FIR register, a full case file for every FIR (people, investigation, evidence with chain of custody, bail, court), people and criminal history, the court calendar, station scorecards, the 27 report queries with their results, and the 45 rule tests with MySQL's own error messages. The writable database itself runs on your own MySQL or with `docker compose up -d`.
 
 ---
 
@@ -306,6 +315,7 @@ tools/
   generate_sample_data.py   writes database/data.sql
   run_integrity_tests.py    runs the tests and proves the data is unchanged
   build_docs.py             regenerates the documents from the live database
+web/                        the live front end (index.html, styles.css, app.js, data.json)
 docker-compose.yml
 .github/workflows/mysql.yml   builds the database and runs the tests on every push
 ```
