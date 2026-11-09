@@ -6,7 +6,7 @@
 
   // After the repository is transferred, change this one line to the new address
   // (for example https://github.com/new-owner/new-repo). Links below follow the default branch.
-  var REPO = "https://github.com/ammarahmed-dev/hospital-management-system";
+  var REPO = "https://github.com/ammarahmed-dev/FIR-Case-Management-System";
 
   var D = null;           // the exported database
   var BY_FIR = {};        // fir_id -> fir
