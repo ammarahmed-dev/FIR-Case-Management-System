@@ -4,6 +4,10 @@
 (function () {
   "use strict";
 
+  // After the repository is transferred, change this one line to the new address
+  // (for example https://github.com/new-owner/new-repo). Links below follow the default branch.
+  var REPO = "https://github.com/ammarahmed-dev/hospital-management-system";
+
   var D = null;           // the exported database
   var BY_FIR = {};        // fir_id -> fir
   var PEOPLE = {};        // person_id -> person with involvement list
@@ -439,9 +443,9 @@
       "<h2>Entity relationship diagram</h2>" +
       '<a href="erd.png"><img class="erd" src="erd.png" alt="Entity relationship diagram of the 27 tables" loading="lazy"></a>' +
       "<h2>Links</h2><ul class='list' style='max-width:620px'>" +
-      "<li><a href='https://github.com/ammarahmed-dev/hospital-management-system' target='_blank' rel='noopener'>Source repository on GitHub</a><span class='small muted'>SQL scripts, tests, docker setup</span></li>" +
-      "<li><a href='https://github.com/ammarahmed-dev/hospital-management-system/blob/claude/gifted-hopper-vpfrca/docs/PROJECT_REPORT.md' target='_blank' rel='noopener'>Project report</a><span class='small muted'>Requirements, design, normalization, testing</span></li>" +
-      "<li><a href='https://github.com/ammarahmed-dev/hospital-management-system/blob/claude/gifted-hopper-vpfrca/docs/DATA_DICTIONARY.md' target='_blank' rel='noopener'>Data dictionary</a><span class='small muted'>Every table, column, constraint and trigger</span></li></ul>";
+      "<li><a href='" + REPO + "' target='_blank' rel='noopener'>Source repository on GitHub</a><span class='small muted'>SQL scripts, tests, docker setup</span></li>" +
+      "<li><a href='" + REPO + "/blob/HEAD/docs/PROJECT_REPORT.md' target='_blank' rel='noopener'>Project report</a><span class='small muted'>Requirements, design, normalization, testing</span></li>" +
+      "<li><a href='" + REPO + "/blob/HEAD/docs/DATA_DICTIONARY.md' target='_blank' rel='noopener'>Data dictionary</a><span class='small muted'>Every table, column, constraint and trigger</span></li></ul>";
   }
 
   /* ------------------------------------------------------------ router */
